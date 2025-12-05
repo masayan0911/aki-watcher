@@ -57,15 +57,7 @@ async function main(): Promise<void> {
       if (result.error) {
         console.error(`  Error: ${result.error}`);
         stateManager.updateSiteState(result, false);
-
-        // エラー通知（オプション）
-        if (notifier) {
-          try {
-            await notifier.sendErrorNotification(site.name, result.error);
-          } catch (notifyError) {
-            console.error('  Failed to send error notification:', notifyError);
-          }
-        }
+        // エラー時はLINE通知しない（ログのみ）
         continue;
       }
 

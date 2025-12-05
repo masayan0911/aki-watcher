@@ -24,8 +24,11 @@ export class Scraper {
 
     const context = await this.browser.newContext({
       userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      locale: 'ja-JP',
+      timezoneId: 'Asia/Tokyo',
     });
     const page = await context.newPage();
+    page.setDefaultTimeout(60000); // 60秒に延長
 
     try {
       // ログインが必要な場合
@@ -34,7 +37,7 @@ export class Scraper {
       }
 
       // 対象ページに移動
-      await page.goto(site.url, { waitUntil: 'networkidle' });
+      await page.goto(site.url, { waitUntil: 'domcontentloaded', timeout: 60000 });
 
       // 条件チェック
       const conditionMet = await this.checkCondition(page, site.notifyWhen);
@@ -75,7 +78,10 @@ export class Scraper {
     }
 
     // ログインページに移動
-    await page.goto(login.url, { waitUntil: 'networkidle' });
+    await page.goto(login.url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+
+    // ログインフォームが表示されるまで待機
+    await page.waitForSelector(login.usernameSelector, { timeout: 30000 });
 
     // 認証情報を入力
     await page.fill(login.usernameSelector, username);
@@ -85,7 +91,7 @@ export class Scraper {
     await page.click(login.submitSelector);
 
     // ログイン完了を待機
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
   }
 
   private async checkCondition(page: Page, condition: NotifyCondition): Promise<boolean> {
