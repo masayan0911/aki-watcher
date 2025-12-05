@@ -1,0 +1,31 @@
+{
+  "name": "aki-watcher",
+  "version": "1.0.0",
+  "description": "予約サイト空きチェック＆通知システム",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "check": "npm run build && npm run start"
+  },
+  "keywords": [
+    "reservation",
+    "scraper",
+    "notification",
+    "line"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "js-yaml": "^4.1.0",
+    "playwright": "^1.40.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.10.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.2"
+  }
+}

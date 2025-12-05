@@ -1,0 +1,21 @@
+# 監視サイト設定
+
+sites:
+  - name: "ゴルフ場予約（2026年1月）"
+    url: "https://www.jgo-os.com/13103/003/reserve/index.cgi?year=2026&month=1&first=first"
+    login:
+      url: "https://www.jgo-os.com/reserve/come.cgi?courseid=13103&userkindid=003"
+      usernameSelector: "input[name='login_email']"
+      passwordSelector: "input[name='login_pswd']"
+      submitSelector: ".btn_login a"
+      usernameEnv: "GOLF_USERNAME"
+      passwordEnv: "GOLF_PASSWORD"
+    notifyWhen:
+      # 予約リンク（●マーク）が存在したら通知
+      elementExists: "a[onclick^='reserve']"
+
+  - name: "酒蕎麦たじ（1月予約）"
+    url: "https://www.sakesobataji.com/information"
+    notifyWhen:
+      # 「1月」にマッチ、ただし「11月」は除外（否定後読み）
+      textMatchesRegex: "(?<!1)1月"
