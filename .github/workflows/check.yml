@@ -30,9 +30,8 @@ jobs:
         env:
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
-          # サイトごとの認証情報（必要に応じて追加）
-          # SITE_A_USERNAME: ${{ secrets.SITE_A_USERNAME }}
-          # SITE_A_PASSWORD: ${{ secrets.SITE_A_PASSWORD }}
+          GOLF_USERNAME: ${{ secrets.GOLF_USERNAME }}
+          GOLF_PASSWORD: ${{ secrets.GOLF_PASSWORD }}
         run: npm run check
 
       - name: Commit status update
