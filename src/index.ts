@@ -2,7 +2,7 @@ import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
-import { Config, SiteConfig } from './types';
+import { Config } from './types';
 import { Scraper } from './scraper';
 import { LineNotifier } from './notifier';
 import { StateManager } from './state';
@@ -25,7 +25,7 @@ function loadConfig(): Config {
   }
 }
 
-async function main(): Promise<void> {
+export async function runCheck(): Promise<void> {
   console.log('=== Aki Watcher Starting ===');
   console.log(`Time: ${new Date().toISOString()}`);
 
@@ -45,51 +45,45 @@ async function main(): Promise<void> {
     console.warn('Notifications will be skipped.');
   }
 
-  try {
-    await scraper.init();
+  // 各サイトをチェック
+  for (const site of config.sites) {
+    console.log(`\nChecking: ${site.name}`);
 
-    // 各サイトをチェック
-    for (const site of config.sites) {
-      console.log(`\nChecking: ${site.name}`);
+    const result = await scraper.checkSite(site);
 
-      const result = await scraper.checkSite(site);
-
-      if (result.error) {
-        console.error(`  Error: ${result.error}`);
-        stateManager.updateSiteState(result, false);
-        // エラー時はLINE通知しない（ログのみ）
-        continue;
-      }
-
-      console.log(`  Condition met: ${result.conditionMet}`);
-
-      // 通知判定
-      const shouldNotify = stateManager.shouldNotify(site.name, result.conditionMet);
-      console.log(`  Should notify: ${shouldNotify}`);
-
-      if (shouldNotify && notifier) {
-        try {
-          await notifier.sendNotification(site.name, site.url);
-          console.log('  Notification sent!');
-          stateManager.updateSiteState(result, true);
-        } catch (notifyError) {
-          console.error('  Failed to send notification:', notifyError);
-          stateManager.updateSiteState(result, false);
-        }
-      } else {
-        stateManager.updateSiteState(result, false);
-      }
+    if (result.error) {
+      console.error(`  Error: ${result.error}`);
+      stateManager.updateSiteState(result, false);
+      continue;
     }
 
-    // ステータス保存
-    stateManager.saveStatus();
-    console.log('\n=== Aki Watcher Complete ===');
-  } finally {
-    await scraper.close();
+    console.log(`  Condition met: ${result.conditionMet}`);
+
+    // 通知判定
+    const shouldNotify = stateManager.shouldNotify(site.name, result.conditionMet);
+    console.log(`  Should notify: ${shouldNotify}`);
+
+    if (shouldNotify && notifier) {
+      try {
+        await notifier.sendNotification(site.name, site.url);
+        console.log('  Notification sent!');
+        stateManager.updateSiteState(result, true);
+      } catch (notifyError) {
+        console.error('  Failed to send notification:', notifyError);
+        stateManager.updateSiteState(result, false);
+      }
+    } else {
+      stateManager.updateSiteState(result, false);
+    }
   }
+
+  // ステータス保存
+  stateManager.saveStatus();
+  console.log('\n=== Aki Watcher Complete ===');
 }
 
-main().catch((error) => {
+// CLIから直接実行された場合
+runCheck().catch((error) => {
   console.error('Fatal error:', error);
   process.exit(1);
 });
