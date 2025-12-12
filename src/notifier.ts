@@ -29,8 +29,14 @@ export class LineNotifier {
     this.userId = userId;
   }
 
-  async sendNotification(siteName: string, url: string): Promise<void> {
-    const message = `${siteName}\n\n空きが見つかりました！\n\n${url}`;
+  async sendNotification(siteName: string, url: string, availableSlots?: string[]): Promise<void> {
+    let message = `🎉 空き枠が見つかりました！\n\n${siteName}`;
+
+    if (availableSlots && availableSlots.length > 0) {
+      message += `\n\n📅 空き日程:\n${availableSlots.join('\n')}`;
+    }
+
+    message += `\n\n${url}`;
     await this.pushMessage(message);
   }
 

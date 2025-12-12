@@ -21,9 +21,13 @@ export class Scraper {
       // 条件チェック
       const conditionMet = this.checkCondition(html, site.notifyWhen);
 
+      // 空き枠情報を抽出
+      const availableSlots = conditionMet ? this.extractAvailableSlots(html) : [];
+
       return {
         siteName: site.name,
         conditionMet,
+        availableSlots,
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
@@ -34,6 +38,21 @@ export class Scraper {
         error: errorMessage,
       };
     }
+  }
+
+  private extractAvailableSlots(html: string): string[] {
+    const slots: string[] = [];
+    // aタグ内のテキストから空き枠情報を抽出: 「12月14日(日) セルフプレープラン（空き枠：1組）」
+    const regex = /<a[^>]*>([^<]*\d{1,2}月\d{1,2}日[^<]*空き枠[^<]*)<\/a>/g;
+    let match;
+    while ((match = regex.exec(html)) !== null) {
+      // 改行やスペースを整理
+      const text = match[1].replace(/\s+/g, ' ').trim();
+      if (text) {
+        slots.push(text);
+      }
+    }
+    return slots;
   }
 
   private checkCondition(html: string, condition: NotifyCondition): boolean {

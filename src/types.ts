@@ -56,5 +56,6 @@ export interface StatusData {
 export interface CheckResult {
   siteName: string;
   conditionMet: boolean;
+  availableSlots?: string[];
   error?: string;
 }

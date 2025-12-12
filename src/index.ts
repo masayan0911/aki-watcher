@@ -58,6 +58,9 @@ export async function runCheck(): Promise<void> {
     }
 
     console.log(`  Condition met: ${result.conditionMet}`);
+    if (result.availableSlots && result.availableSlots.length > 0) {
+      console.log(`  Available slots: ${result.availableSlots.join(', ')}`);
+    }
 
     // 通知判定
     const shouldNotify = stateManager.shouldNotify(site.name, result.conditionMet);
@@ -65,7 +68,7 @@ export async function runCheck(): Promise<void> {
 
     if (shouldNotify && notifier) {
       try {
-        await notifier.sendNotification(site.name, site.url);
+        await notifier.sendNotification(site.name, site.url, result.availableSlots);
         console.log('  Notification sent!');
         stateManager.updateSiteState(result, true);
       } catch (notifyError) {
