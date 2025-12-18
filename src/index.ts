@@ -66,7 +66,8 @@ export async function runCheck(): Promise<void> {
     const shouldNotify = stateManager.shouldNotify(site.name, result.conditionMet);
     console.log(`  Should notify: ${shouldNotify}`);
 
-    if (shouldNotify && notifier) {
+    const hasSlots = result.availableSlots && result.availableSlots.length > 0;
+    if (shouldNotify && hasSlots && notifier) {
       try {
         await notifier.sendNotification(site.name, site.url, result.availableSlots);
         console.log('  Notification sent!');
