@@ -21,8 +21,8 @@ export class Scraper {
       // 条件チェック
       const conditionMet = this.checkCondition(html, site.notifyWhen);
 
-      // 空き枠情報を抽出
-      const availableSlots = conditionMet ? this.extractAvailableSlots(html) : [];
+      // 空き枠情報を抽出（minDaysAhead指定時は直近の空きをフィルタ）
+      const availableSlots = conditionMet ? this.extractAvailableSlots(html, site.minDaysAhead) : [];
 
       return {
         siteName: site.name,
@@ -40,7 +40,7 @@ export class Scraper {
     }
   }
 
-  private extractAvailableSlots(html: string): string[] {
+  private extractAvailableSlots(html: string, minDaysAhead?: number): string[] {
     const slots: string[] = [];
     // aタグ内のテキストから空き枠情報を抽出: 「12月14日(日) セルフプレープラン（空き枠：1組）」
     const regex = /<a[^>]*>([^<]*\d{1,2}月\d{1,2}日[^<]*空き枠[^<]*)<\/a>/g;
@@ -49,10 +49,45 @@ export class Scraper {
       // 改行やスペースを整理
       const text = match[1].replace(/\s+/g, ' ').trim();
       if (text) {
-        slots.push(text);
+        // minDaysAhead指定時は日付をチェック
+        if (minDaysAhead !== undefined) {
+          const daysAhead = this.getDaysAhead(text);
+          if (daysAhead !== null && daysAhead >= minDaysAhead) {
+            slots.push(text);
+          }
+        } else {
+          slots.push(text);
+        }
       }
     }
     return slots;
+  }
+
+  private getDaysAhead(slotText: string): number | null {
+    // 「12月14日」のような日付を抽出
+    const dateMatch = slotText.match(/(\d{1,2})月(\d{1,2})日/);
+    if (!dateMatch) return null;
+
+    const month = parseInt(dateMatch[1], 10);
+    const day = parseInt(dateMatch[2], 10);
+
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth() + 1;
+
+    // 年の決定：現在12月で空きが1-3月なら翌年
+    let year = currentYear;
+    if (currentMonth >= 10 && month <= 3) {
+      year = currentYear + 1;
+    }
+
+    const slotDate = new Date(year, month - 1, day);
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    const diffTime = slotDate.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    return diffDays;
   }
 
   private checkCondition(html: string, condition: NotifyCondition): boolean {

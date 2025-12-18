@@ -6,3 +6,4 @@ sites:
     notifyWhen:
       # 「空き枠はございません」以外のテキストが出たら通知
       textNotContains: "空き枠はございません"
+    minDaysAhead: 7  # 7日以降の空きのみ通知（直近の空きは無視）

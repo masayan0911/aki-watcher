@@ -27,6 +27,7 @@ export interface SiteConfig {
   url: string;
   login?: LoginConfig;
   notifyWhen: NotifyCondition;
+  minDaysAhead?: number; // N日以降の空きのみ通知（直近の空きを無視）
 }
 
 // 設定ファイル全体
