@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-12-19T03:38:13.000Z",
+  "lastUpdated": "2025-12-19T04:01:02.153Z",
   "sites": [
     {
       "name": "ゴルフ場予約（2026年1月）",
@@ -13,8 +13,8 @@
     },
     {
       "name": "若洲ゴルフリンクス（補充予約）",
-      "status": "unavailable",
-      "lastChecked": "2025-12-19T03:38:13.000Z",
+      "status": "available",
+      "lastChecked": "2025-12-19T04:01:02.153Z",
       "lastNotified": "2025-12-18T03:35:13.183Z"
     }
   ]
