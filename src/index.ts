@@ -62,16 +62,39 @@ export async function runCheck(): Promise<void> {
       console.log(`  Available slots: ${result.availableSlots.join(', ')}`);
     }
 
+    // 商品スキャンモードの場合は商品ごとに通知管理
+    const isProductScan = !!site.notifyWhen.productScan;
+    let slotsToNotify = result.availableSlots || [];
+    let productsToNotify = result.products || [];
+
+    if (isProductScan && slotsToNotify.length > 0) {
+      // 通知済み商品を除外
+      slotsToNotify = stateManager.filterNewProducts(site.name, slotsToNotify);
+      productsToNotify = productsToNotify.filter(p => slotsToNotify.includes(p.name));
+      console.log(`  New products: ${slotsToNotify.length > 0 ? slotsToNotify.join(', ') : 'none'}`);
+      if (productsToNotify.length > 0) {
+        productsToNotify.forEach(p => console.log(`    - ${p.name}: ${p.url || 'no url'}`));
+      }
+    }
+
     // 通知判定
-    const shouldNotify = stateManager.shouldNotify(site.name, result.conditionMet);
+    const shouldNotify = isProductScan
+      ? slotsToNotify.length > 0  // 商品スキャン: 新商品があれば通知
+      : stateManager.shouldNotify(site.name, result.conditionMet);  // 通常モード
     console.log(`  Should notify: ${shouldNotify}`);
 
-    const hasSlots = result.availableSlots && result.availableSlots.length > 0;
-    if (shouldNotify && hasSlots && notifier) {
+    if (shouldNotify && slotsToNotify.length > 0 && notifier) {
       try {
-        await notifier.sendNotification(site.name, site.url, result.availableSlots);
+        if (isProductScan && productsToNotify.length > 0) {
+          await notifier.sendProductNotification(site.name, productsToNotify);
+        } else {
+          await notifier.sendNotification(site.name, site.url, slotsToNotify);
+        }
         console.log('  Notification sent!');
         stateManager.updateSiteState(result, true);
+        if (isProductScan) {
+          stateManager.addNotifiedProducts(site.name, slotsToNotify);
+        }
       } catch (notifyError) {
         console.error('  Failed to send notification:', notifyError);
         stateManager.updateSiteState(result, false);

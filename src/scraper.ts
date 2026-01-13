@@ -1,4 +1,4 @@
-import { SiteConfig, NotifyCondition, CheckResult } from './types';
+import { SiteConfig, NotifyCondition, CheckResult, ProductInfo } from './types';
 
 export class Scraper {
   async checkSite(site: SiteConfig): Promise<CheckResult> {
@@ -17,6 +17,21 @@ export class Scraper {
       }
 
       const html = await response.text();
+
+      // 商品スキャンモードの場合
+      if (site.notifyWhen.productScan) {
+        const { productNameRegex, productUrlRegex, baseUrl, excludeProducts } = site.notifyWhen.productScan;
+        const products = this.extractProductsWithUrls(html, productNameRegex, productUrlRegex, baseUrl);
+        const excludeList = excludeProducts || [];
+        const newProducts = products.filter(p => !excludeList.includes(p.name));
+
+        return {
+          siteName: site.name,
+          conditionMet: newProducts.length > 0,
+          availableSlots: newProducts.map(p => p.name),
+          products: newProducts,
+        };
+      }
 
       // 条件チェック
       const conditionMet = this.checkCondition(html, site.notifyWhen);
@@ -110,5 +125,43 @@ export class Scraper {
     // 条件が指定されていない場合はfalse
     console.warn('No valid condition specified');
     return false;
+  }
+
+  private extractProductsWithUrls(
+    html: string,
+    nameRegex: string,
+    urlRegex?: string,
+    baseUrl?: string
+  ): ProductInfo[] {
+    const products: ProductInfo[] = [];
+    const seenNames = new Set<string>();
+
+    // 商品名を抽出
+    const namePattern = new RegExp(nameRegex, 'g');
+    let nameMatch;
+    while ((nameMatch = namePattern.exec(html)) !== null) {
+      const productName = (nameMatch[1] || nameMatch[0]).trim();
+      if (productName && !seenNames.has(productName)) {
+        seenNames.add(productName);
+
+        let productUrl: string | undefined;
+        if (urlRegex) {
+          // 商品名の位置から後方を検索してURLを探す（次の商品名が出るまで）
+          const startPos = nameMatch.index + nameMatch[0].length;
+          const searchArea = html.substring(startPos, startPos + 2000);
+          const urlPattern = new RegExp(urlRegex);
+          const urlMatch = searchArea.match(urlPattern);
+          if (urlMatch) {
+            productUrl = urlMatch[1] || urlMatch[0];
+            if (baseUrl && productUrl.startsWith('/')) {
+              productUrl = baseUrl + productUrl;
+            }
+          }
+        }
+
+        products.push({ name: productName, url: productUrl });
+      }
+    }
+    return products;
   }
 }

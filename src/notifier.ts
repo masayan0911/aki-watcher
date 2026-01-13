@@ -1,4 +1,5 @@
 import https from 'https';
+import { ProductInfo } from './types';
 
 interface LineMessage {
   type: 'text';
@@ -37,6 +38,22 @@ export class LineNotifier {
     }
 
     message += `\n\n${url}`;
+    await this.pushMessage(message);
+  }
+
+  async sendProductNotification(siteName: string, products: ProductInfo[]): Promise<void> {
+    let message = `🎉 新商品が見つかりました！\n\n${siteName}`;
+
+    if (products.length > 0) {
+      message += '\n\n📦 商品:';
+      for (const product of products) {
+        message += `\n・${product.name}`;
+        if (product.url) {
+          message += `\n  ${product.url}`;
+        }
+      }
+    }
+
     await this.pushMessage(message);
   }
 

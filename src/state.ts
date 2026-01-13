@@ -65,11 +65,16 @@ export class StateManager {
       ...(result.error && { errorMessage: result.error }),
     };
 
-    // 通知していない場合は前回の通知時刻を保持
-    if (!notified && existingIndex >= 0) {
-      const previousNotified = this.statusData.sites[existingIndex].lastNotified;
-      if (previousNotified) {
-        newState.lastNotified = previousNotified;
+    // 既存の状態がある場合は一部フィールドを保持
+    if (existingIndex >= 0) {
+      const existing = this.statusData.sites[existingIndex];
+      // 通知していない場合は前回の通知時刻を保持
+      if (!notified && existing.lastNotified) {
+        newState.lastNotified = existing.lastNotified;
+      }
+      // 通知済み商品リストを保持
+      if (existing.notifiedProducts) {
+        newState.notifiedProducts = existing.notifiedProducts;
       }
     }
 
@@ -98,5 +103,29 @@ export class StateManager {
 
   getStatusData(): StatusData {
     return this.statusData;
+  }
+
+  // 通知済み商品リストを取得
+  getNotifiedProducts(siteName: string): string[] {
+    const state = this.getSiteState(siteName);
+    return state?.notifiedProducts || [];
+  }
+
+  // 通知済み商品を追加
+  addNotifiedProducts(siteName: string, products: string[]): void {
+    const existingIndex = this.statusData.sites.findIndex(
+      (s) => s.name === siteName
+    );
+
+    if (existingIndex >= 0) {
+      const existing = this.statusData.sites[existingIndex].notifiedProducts || [];
+      this.statusData.sites[existingIndex].notifiedProducts = [...new Set([...existing, ...products])];
+    }
+  }
+
+  // 新商品のみをフィルタリング（通知済み商品を除く）
+  filterNewProducts(siteName: string, products: string[]): string[] {
+    const notified = this.getNotifiedProducts(siteName);
+    return products.filter(p => !notified.includes(p));
   }
 }
