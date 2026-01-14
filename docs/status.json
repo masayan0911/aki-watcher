@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-14T15:24:50.423Z",
+  "lastUpdated": "2026-01-14T15:37:05.360Z",
   "sites": [
     {
       "name": "ゴルフ場予約（2026年1月）",
@@ -14,13 +14,13 @@
     {
       "name": "若洲ゴルフリンクス（補充予約）",
       "status": "unavailable",
-      "lastChecked": "2026-01-14T15:24:50.044Z",
+      "lastChecked": "2026-01-14T15:37:04.888Z",
       "lastNotified": "2026-01-13T22:56:56.942Z"
     },
     {
       "name": "Hermès メンズバッグ",
       "status": "unavailable",
-      "lastChecked": "2026-01-14T15:24:50.423Z"
+      "lastChecked": "2026-01-14T15:37:05.360Z"
     }
   ]
 }
