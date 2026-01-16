@@ -125,7 +125,29 @@ export class StateManager {
 
   // 新商品のみをフィルタリング（通知済み商品を除く）
   filterNewProducts(siteName: string, products: string[]): string[] {
+    // 24時間経過していたらnotifiedProductsをクリア
+    this.clearExpiredNotifiedProducts(siteName);
     const notified = this.getNotifiedProducts(siteName);
     return products.filter(p => !notified.includes(p));
+  }
+
+  // 最終通知から24時間経過していたらnotifiedProductsをクリア
+  private clearExpiredNotifiedProducts(siteName: string, hoursToExpire: number = 24): void {
+    const state = this.getSiteState(siteName);
+    if (!state?.lastNotified || !state?.notifiedProducts?.length) {
+      return;
+    }
+
+    const lastNotified = new Date(state.lastNotified).getTime();
+    const now = Date.now();
+    const hoursPassed = (now - lastNotified) / (1000 * 60 * 60);
+
+    if (hoursPassed >= hoursToExpire) {
+      const existingIndex = this.statusData.sites.findIndex(s => s.name === siteName);
+      if (existingIndex >= 0) {
+        console.log(`  Clearing notifiedProducts for ${siteName} (${hoursPassed.toFixed(1)}h since last notification)`);
+        this.statusData.sites[existingIndex].notifiedProducts = [];
+      }
+    }
   }
 }
