@@ -32,3 +32,19 @@ sites:
           - "バッグ 《ロング・クーリエ》"
           - "バッグ 《ボリード1923》 45 カザック"
           - "書類ケース 《ヴィクトリア》 ライト"
+
+  - name: "Hermès レディースバッグ"
+    url: "https://www.hermes.com/jp/ja/category/women/bags-and-small-leather-goods/bags-and-clutches/"
+    notifyWhen:
+      productScan:
+        # バッグ/クラッチ/ミニバッグのみ抽出（《》で囲まれた製品名を含むもの）
+        productNameRegex: '"title":"((バッグ|クラッチ|ミニバッグ)[^"]*《[^"]+》[^"]*)"'
+        # 商品URLを抽出（商品名の前方にあるURLをキャプチャ）
+        productUrlRegex: '"url":"(/product/[^"]+)"'
+        baseUrl: "https://www.hermes.com/jp/ja"
+        # 除外する商品名（通知不要な商品をここに追加）
+        excludeProducts:
+          - "バッグ 《サック・ア・マリス》"
+          - "バッグ 《サボ》"
+          - "バッグ 《ソー・メドール》"
+          - "バッグ 《ボリード1923》 ミニ 《空想の鞍》"
