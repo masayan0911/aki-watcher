@@ -49,7 +49,8 @@ export class LineNotifier {
       for (const product of products) {
         message += `\n・${product.name}`;
         if (product.url) {
-          message += `\n  ${product.url}`;
+          // 日本語URLをエンコードしてリンク切れを防止
+          message += `\n  ${encodeURI(product.url)}`;
         }
       }
     }
