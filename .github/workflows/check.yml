@@ -1,10 +1,7 @@
 name: Check Availability
 
 on:
-  schedule:
-    # 5分おきに実行
-    - cron: '*/5 * * * *'
-  workflow_dispatch: # 手動実行も可能
+  workflow_dispatch: # cron-job.orgから呼び出し
 
 jobs:
   check:
