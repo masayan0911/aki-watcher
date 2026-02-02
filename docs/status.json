@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-02T12:18:17.406Z",
+  "lastUpdated": "2026-02-02T12:19:18.519Z",
   "sites": [
     {
       "name": "ゴルフ場予約（2026年1月）",
@@ -14,28 +14,30 @@
     {
       "name": "若洲ゴルフリンクス（補充予約）",
       "status": "unavailable",
-      "lastChecked": "2026-02-02T12:18:17.083Z",
+      "lastChecked": "2026-02-02T12:19:17.140Z",
       "lastNotified": "2026-02-02T11:55:21.514Z"
     },
     {
       "name": "Hermès メンズバッグ",
-      "status": "error",
-      "lastChecked": "2026-02-02T12:18:17.358Z",
-      "errorMessage": "HTTP 403: Forbidden",
-      "lastNotified": "2026-01-29T11:17:19.343Z",
+      "status": "available",
+      "lastChecked": "2026-02-02T12:19:18.085Z",
+      "lastNotified": "2026-02-02T12:19:18.085Z",
       "notifiedProducts": [
-        "バッグ 《アッ・カ・ド》 PM",
-        "バッグ 《ヴィドポッシュ》",
-        "バッグ 《スティーヴ》 ライト 《ジュニア》"
+        "バッグ 《アッ・カ・ド》 PM モノクローム"
       ]
     },
     {
       "name": "Hermès レディースバッグ",
       "status": "available",
-      "lastChecked": "2026-02-02T12:18:17.406Z",
-      "lastNotified": "2026-02-01T13:02:21.189Z",
+      "lastChecked": "2026-02-02T12:19:18.519Z",
+      "lastNotified": "2026-02-02T12:19:18.519Z",
       "notifiedProducts": [
-        "バッグ 《エルメス・サボ》"
+        "バッグ 《エルメス・サボ》",
+        "バッグ 《エヴリンIII》 29",
+        "バッグ 《エルメス・デッラ・カヴァッレリア》 エラン",
+        "バッグ 《イン・ザ・ループ》 18",
+        "バッグ 《エールバッグ・ジップ》 31 ルトゥルネ",
+        "バッグ 《アルザン》 ミニ"
       ]
     }
   ]
