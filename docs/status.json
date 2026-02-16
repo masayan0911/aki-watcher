@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-16T06:20:26.447Z",
+  "lastUpdated": "2026-02-16T06:21:25.172Z",
   "sites": [
     {
       "name": "ゴルフ場予約（2026年1月）",
@@ -14,13 +14,13 @@
     {
       "name": "若洲ゴルフリンクス（補充予約）",
       "status": "available",
-      "lastChecked": "2026-02-16T06:20:25.951Z",
+      "lastChecked": "2026-02-16T06:21:24.416Z",
       "lastNotified": "2026-02-16T03:56:21.182Z"
     },
     {
       "name": "Hermès メンズバッグ",
       "status": "error",
-      "lastChecked": "2026-02-16T06:20:26.228Z",
+      "lastChecked": "2026-02-16T06:21:24.635Z",
       "errorMessage": "HTTP 403: Forbidden",
       "lastNotified": "2026-02-14T21:49:17.398Z",
       "notifiedProducts": [
@@ -29,14 +29,17 @@
     },
     {
       "name": "Hermès レディースバッグ",
-      "status": "error",
-      "lastChecked": "2026-02-16T06:20:26.447Z",
-      "errorMessage": "HTTP 403: Forbidden",
-      "lastNotified": "2026-02-15T17:18:22.452Z",
+      "status": "available",
+      "lastChecked": "2026-02-16T06:21:25.172Z",
+      "lastNotified": "2026-02-16T06:21:25.172Z",
       "notifiedProducts": [
         "バッグ 《エルメス・サボ》",
         "バッグ 《エトリヴィエール・ショッピング》",
-        "バッグ 《ボリード1923》 45 カザック"
+        "バッグ 《ボリード1923》 45 カザック",
+        "バッグ 《エルメス・ゲタ》",
+        "バッグ 《エヴリンIII》 29",
+        "バッグ 《ネオ・ガーデン》 41 ヴォヤージュ",
+        "バッグ 《エルメス・ゲタ》 スリム"
       ]
     }
   ]
