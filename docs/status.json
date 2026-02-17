@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-17T07:55:21.248Z",
+  "lastUpdated": "2026-02-17T07:56:19.614Z",
   "sites": [
     {
       "name": "ゴルフ場予約（2026年1月）",
@@ -14,13 +14,13 @@
     {
       "name": "若洲ゴルフリンクス（補充予約）",
       "status": "unavailable",
-      "lastChecked": "2026-02-17T07:55:20.807Z",
+      "lastChecked": "2026-02-17T07:56:18.657Z",
       "lastNotified": "2026-02-16T15:32:19.258Z"
     },
     {
       "name": "Hermès メンズバッグ",
       "status": "error",
-      "lastChecked": "2026-02-17T07:55:21.056Z",
+      "lastChecked": "2026-02-17T07:56:18.900Z",
       "errorMessage": "HTTP 403: Forbidden",
       "lastNotified": "2026-02-16T11:28:19.921Z",
       "notifiedProducts": [
@@ -32,10 +32,9 @@
     },
     {
       "name": "Hermès レディースバッグ",
-      "status": "error",
-      "lastChecked": "2026-02-17T07:55:21.248Z",
-      "errorMessage": "HTTP 403: Forbidden",
-      "lastNotified": "2026-02-16T13:23:21.096Z",
+      "status": "available",
+      "lastChecked": "2026-02-17T07:56:19.614Z",
+      "lastNotified": "2026-02-17T07:56:19.614Z",
       "notifiedProducts": [
         "バッグ 《エルメス・サボ》",
         "バッグ 《エトリヴィエール・ショッピング》",
@@ -46,7 +45,8 @@
         "バッグ 《エルメス・ゲタ》 スリム",
         "バッグ 《ヴィドポッシュ》",
         "バッグ 《リンディ》 30",
-        "バッグ 《リンディ》 26"
+        "バッグ 《リンディ》 26",
+        "バッグ 《ネオ・ドゥブル・サンス》 35 バイカラー"
       ]
     }
   ]
