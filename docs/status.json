@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-20T01:50:22.646Z",
+  "lastUpdated": "2026-02-20T01:51:22.623Z",
   "sites": [
     {
       "name": "ゴルフ場予約（2026年1月）",
@@ -14,13 +14,13 @@
     {
       "name": "若洲ゴルフリンクス（補充予約）",
       "status": "unavailable",
-      "lastChecked": "2026-02-20T01:50:21.566Z",
+      "lastChecked": "2026-02-20T01:51:20.639Z",
       "lastNotified": "2026-02-19T13:49:27.983Z"
     },
     {
       "name": "Hermès メンズバッグ",
       "status": "error",
-      "lastChecked": "2026-02-20T01:50:22.185Z",
+      "lastChecked": "2026-02-20T01:51:20.966Z",
       "errorMessage": "HTTP 403: Forbidden",
       "lastNotified": "2026-02-16T11:28:19.921Z",
       "notifiedProducts": [
@@ -32,14 +32,16 @@
     },
     {
       "name": "Hermès レディースバッグ",
-      "status": "error",
-      "lastChecked": "2026-02-20T01:50:22.646Z",
-      "errorMessage": "HTTP 403: Forbidden",
-      "lastNotified": "2026-02-19T05:13:17.259Z",
+      "status": "available",
+      "lastChecked": "2026-02-20T01:51:22.623Z",
+      "lastNotified": "2026-02-20T01:51:22.623Z",
       "notifiedProducts": [
         "バッグ 《エトリヴィエール・ショッピング》",
         "バッグ 《ボリード1923》 45 カザック",
-        "バッグ 《プティット・コース》"
+        "バッグ 《プティット・コース》",
+        "バッグ 《ネオ・ドゥブル・サンス》 35 バイカラー",
+        "バッグ 《ネオ・ドゥブル・サンス》 35 ユニカラー",
+        "バッグ 《ガーデン・パーティ》 30"
       ]
     }
   ]
