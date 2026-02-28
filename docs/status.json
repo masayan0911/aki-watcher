@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-28T10:39:17.467Z",
+  "lastUpdated": "2026-02-28T10:40:26.763Z",
   "sites": [
     {
       "name": "ゴルフ場予約（2026年1月）",
@@ -14,13 +14,13 @@
     {
       "name": "若洲ゴルフリンクス（補充予約）",
       "status": "unavailable",
-      "lastChecked": "2026-02-28T10:39:16.823Z",
+      "lastChecked": "2026-02-28T10:40:26.341Z",
       "lastNotified": "2026-02-28T03:03:23.333Z"
     },
     {
       "name": "Hermès メンズバッグ",
       "status": "error",
-      "lastChecked": "2026-02-28T10:39:17.138Z",
+      "lastChecked": "2026-02-28T10:40:26.619Z",
       "errorMessage": "HTTP 403: Forbidden",
       "lastNotified": "2026-02-16T11:28:19.921Z",
       "notifiedProducts": [
@@ -33,7 +33,7 @@
     {
       "name": "Hermès レディースバッグ",
       "status": "error",
-      "lastChecked": "2026-02-28T10:39:17.467Z",
+      "lastChecked": "2026-02-28T10:40:26.763Z",
       "errorMessage": "HTTP 403: Forbidden",
       "lastNotified": "2026-02-25T21:37:19.586Z",
       "notifiedProducts": [
