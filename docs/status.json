@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-05T11:12:19.028Z",
+  "lastUpdated": "2026-03-05T11:13:25.861Z",
   "sites": [
     {
       "name": "ゴルフ場予約（2026年1月）",
@@ -14,13 +14,13 @@
     {
       "name": "若洲ゴルフリンクス（補充予約）",
       "status": "unavailable",
-      "lastChecked": "2026-03-05T11:12:18.317Z",
+      "lastChecked": "2026-03-05T11:13:23.723Z",
       "lastNotified": "2026-03-05T07:01:33.424Z"
     },
     {
       "name": "Hermès メンズバッグ",
       "status": "error",
-      "lastChecked": "2026-03-05T11:12:18.860Z",
+      "lastChecked": "2026-03-05T11:13:24.408Z",
       "errorMessage": "HTTP 403: Forbidden",
       "lastNotified": "2026-03-03T13:22:25.193Z",
       "notifiedProducts": [
@@ -29,15 +29,14 @@
     },
     {
       "name": "Hermès レディースバッグ",
-      "status": "error",
-      "lastChecked": "2026-03-05T11:12:19.028Z",
-      "errorMessage": "HTTP 403: Forbidden",
-      "lastNotified": "2026-03-03T14:02:22.618Z",
+      "status": "available",
+      "lastChecked": "2026-03-05T11:13:25.861Z",
+      "lastNotified": "2026-03-05T11:13:25.861Z",
       "notifiedProducts": [
         "バッグ 《エトリヴィエール・ショッピング》",
+        "バッグ 《プティット・コース》",
         "バッグ 《ボリード1923》 45 カザック",
-        "バッグ 《ネオ・メドール》",
-        "バッグ 《プティット・コース》"
+        "バッグ 《ネオ・メドール》"
       ]
     }
   ]
